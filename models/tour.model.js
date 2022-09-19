@@ -16,22 +16,24 @@ const tourSchema =  mongoose.Schema({
   } ,
   description: {
     type : String , 
+    minLength: [20 , "description is too short"]
   }, 
   places : {
-    type: [String] 
+    type: [String] , 
+    required : true
   }, 
   subscriptionCost : {
     type: Number , 
-    required : true , 
-    min : 0
+    required : [true, "subscriptionCost details required"],
+    min : [0 , "cost can't be negative"]
   },
   duration: {
     type: String , 
-    required : true,
+    required : [true, "duration details required"],
   }, 
   totalVacancy : {
     type : Number , 
-    required : true, 
+    required : [true , "total vacancy should be mentioned"], 
     min: [50 , "total vacancy have to be minimum 50"] ,
     validate : {
       validator : (value) => {
@@ -46,7 +48,7 @@ const tourSchema =  mongoose.Schema({
   }, 
   bookedVacancy: {
     type : Number , 
-    required : true, 
+    required : [true , "booked vacancy should be mentioned"], 
     min: 0 , 
     validate : {
       validator : (value) => {
