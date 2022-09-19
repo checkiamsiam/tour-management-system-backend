@@ -31,11 +31,16 @@ app.all("*", (req, res) => {
   res.status(404).send("route not found");
 });
 
-app.use((err, req, res) => {
+app.use((err, req, res , next) => {
   if (err) {
     res.status(500).send({
       success: false,
       message: err.message,
+    });
+  }else{
+    res.status(500).send({
+      success: false,
+      message: "there was a server side error",
     });
   }
 });
