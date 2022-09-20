@@ -30,6 +30,14 @@ toursRoute.get("/tours/cheapest", getTopThreeCheapController);
 
 toursRoute
   .route("/tours")
+   /**
+   * @api method{get}  ->  access of all tour data
+   * @api description  ->  data is fully user flexible. user can set anything from frontend api hit. and he will get his required data in response
+   *
+   * @api success response  -> data[{},{},...]
+   * @api error result -> {success: false , message : error}
+   *
+   */
   .get(getTourController)
   /**
    * @api method{post}  ->  add a new tour
