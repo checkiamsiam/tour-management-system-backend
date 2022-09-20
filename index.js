@@ -32,7 +32,7 @@ app.all("*", (req, res) => {
 });
 
 app.use((err, req, res , next) => {
-  if (err) {
+  if (err.message) {
     res.status(500).send({
       success: false,
       message: err.message,
