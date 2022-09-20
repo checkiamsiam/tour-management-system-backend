@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const port = process.env.PORT || 5000;
 const colors = require("colors");
+const handleError = require("./middleware/errorHandler/global.errorHandler");
 require("dotenv").config();
 
 app.use(cors());
@@ -28,19 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.all("*", (req, res) => {
-  res.status(404).send("route not found");
+  res.status(404).send({success : false , message: "adress not found"});
 });
 
-app.use((err, req, res , next) => {
-  if (err.message) {
-    res.status(500).send({
-      success: false,
-      message: err.message,
-    });
-  }else{
-    res.status(500).send({
-      success: false,
-      message: "there was a server side error",
-    });
-  }
-});
+app.use(handleError);
