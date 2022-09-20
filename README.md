@@ -14,13 +14,13 @@ This system, I have provide several endpoints to the client. The endpoints are:
 - Get a tour details by id
 - Counting view
 
-### PATCH /tour/:id
+### PATCH /tours/:id
 - Update a tour with schema validation
 
-### GET /tour/trending
+### GET /tours/trending
 - Get top 3 viewed tour
 
-### GET /tour/cheapest
+### GET /tours/cheapest
 - Get top 3 cheapest tours
 
 
