@@ -1,19 +1,24 @@
 const Tour = require("../models/tour.model");
 
-const postTourService = async (data) => {
+module.exports.getAllTourService = async (filter, queries) => {
+  const skipData = (queries.page - 1) * queries.limit
+  return await Tour.find(filter).select(queries.fields).sort(queries.sort).skip(skipData).limit(queries.limit)
+};
+
+module.exports.postTourService = async (data) => {
   const tour = new Tour(data);
   const result = await tour.save();
   return result;
 };
 
-const getOneTourService = async (id) => {
+module.exports.getOneTourService = async (id) => {
   const filter = { _id: id };
   await Tour.updateOne(filter, { $inc: { viewCount: 1 } });
   const result = await Tour.findById(filter);
   return result;
 };
 
-const updateOneTourService = async (id, data) => {
+module.exports.updateOneTourService = async (id, data) => {
   const filter = { _id: id };
   // const result = await Tour.findByIdAndUpdate(filter, { $set: data }, { new: true, runValidators: true });
   const updatedItem = await Tour.findById(filter);
@@ -21,14 +26,12 @@ const updateOneTourService = async (id, data) => {
   return result;
 };
 
-const getTopThreeTrendingServices = async () => {
+module.exports.getTopThreeTrendingServices = async () => {
   const result = await Tour.find({}).sort("-viewCount -createdAt -bookedVacancy").limit(3);
   return result;
 };
 
-const getTopThreeCheapService = async () => {
+module.exports.getTopThreeCheapService = async () => {
   const result = await Tour.find({}).sort("subscriptionCost").limit(3);
   return result;
 };
-
-module.exports = { postTourService, getOneTourService, updateOneTourService, getTopThreeTrendingServices, getTopThreeCheapService };
