@@ -1,5 +1,5 @@
 const Tour = require("../models/tour.model");
-const { postTourService, getOneTourController } = require("../services/tours.services");
+const { postTourService, updateOneTourService, getOneTourService, getTopThreeTrendingServices } = require("../services/tours.services");
 
 module.exports.getTourController = async (req, res, next) => {
   try {
@@ -11,7 +11,7 @@ module.exports.getTourController = async (req, res, next) => {
 };
 module.exports.getOneTourController = async (req, res, next) => {
   try {
-    const result =  await getOneTourController(req.params.id)
+    const result =  await getOneTourService(req.params.id)
     res.send(result)
   } catch (error) {
     next(error);
@@ -27,7 +27,15 @@ module.exports.postTourController = async (req, res, next) => {
 };
 module.exports.updateOneTourController = async (req, res, next) => {
   try {
-    const result = await postTourService(req.body)
+    const result = await updateOneTourService(req.params.id , req.body)
+    res.send(result)
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.getTopThreeTrendingController = async (req, res, next) => {
+  try {
+    const result = await getTopThreeTrendingServices()
     res.send(result)
   } catch (error) {
     next(error);
